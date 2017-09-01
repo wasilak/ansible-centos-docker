@@ -1,0 +1,7 @@
+Centos Docker
+=========
+
+License
+-------
+
+MIT

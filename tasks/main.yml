@@ -1,0 +1,54 @@
+---
+- name: "add docker repo"
+  yum_repository:
+    name: "{{ item.name }}"
+    description: "{{ item.description}}"
+    gpgkey: "{{ item.gpgkey }}"
+    baseurl: "{{ item.baseurl }}"
+  with_items:
+  - {
+      name: "docker-ce-stable",
+      description: "Docker CE Stable - $basearch",
+      baseurl: "https://download.docker.com/linux/centos/7/$basearch/stable",
+      enabled: 1,
+      gpgkey: "https://download.docker.com/linux/centos/gpg"
+    }
+  - {
+      name: "docker-ce-stable-debuginfo",
+      description: "Docker CE Stable - Debuginfo $basearch",
+      baseurl: "https://download.docker.com/linux/centos/7/debug-$basearch/stable",
+      enabled: 0,
+      gpgkey: "https://download.docker.com/linux/centos/gpg"
+    }
+  - {
+      name: "docker-ce-stable-source",
+      description: "Docker CE Stable - Sources",
+      baseurl: "https://download.docker.com/linux/centos/7/source/stable",
+      enabled: 0,
+      gpgkey: "https://download.docker.com/linux/centos/gpg"
+    }
+  tags: [ "docker" ]
+
+- name: "install docker"
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "docker-ce"
+    - "python2-pip"
+  tags: [ "docker" ]
+  notify: "restart docker service"
+
+- name: "install docker-compose"
+  pip:
+    name: "docker-compose"
+    state: present
+  tags: [ "docker" ]
+
+- name: "enable docker service"
+  service:
+    name: docker
+    enabled: yes
+  tags: [ "docker" ]
+  notify: "restart docker service"
+
