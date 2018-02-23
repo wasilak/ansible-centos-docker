@@ -9,21 +9,21 @@
   - {
       name: "docker-ce-stable",
       description: "Docker CE Stable - $basearch",
-      baseurl: "https://download.docker.com/linux/centos/7/$basearch/stable",
+      baseurl: 'https://download.docker.com/linux/centos/hostvars[inventory_hostname]["ansible_distribution_major_version"]/$basearch/stable',
       enabled: 1,
       gpgkey: "https://download.docker.com/linux/centos/gpg"
     }
   - {
       name: "docker-ce-stable-debuginfo",
       description: "Docker CE Stable - Debuginfo $basearch",
-      baseurl: "https://download.docker.com/linux/centos/hostvars[inventory_hostname]["ansible_distribution_major_version"]/debug-$basearch/stable",
+      baseurl: 'https://download.docker.com/linux/centos/hostvars[inventory_hostname]["ansible_distribution_major_version"]/debug-$basearch/stable',
       enabled: 0,
       gpgkey: "https://download.docker.com/linux/centos/gpg"
     }
   - {
       name: "docker-ce-stable-source",
       description: "Docker CE Stable - Sources",
-      baseurl: "https://download.docker.com/linux/centos/hostvars[inventory_hostname]["ansible_distribution_major_version"]/source/stable",
+      baseurl: 'https://download.docker.com/linux/centos/hostvars[inventory_hostname]["ansible_distribution_major_version"]/source/stable',
       enabled: 0,
       gpgkey: "https://download.docker.com/linux/centos/gpg"
     }
